@@ -1,0 +1,36 @@
+<svg width="420" height="420" viewBox="0 0 420 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="g1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(150 120) rotate(45) scale(320)">
+      <stop stop-color="#46F3FF" stop-opacity="0.35"/>
+      <stop offset="0.55" stop-color="#FF3DF2" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#FFE95C" stop-opacity="0.18"/>
+    </radialGradient>
+    <filter id="glow" x="-80" y="-80" width="580" height="580" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="12" result="blur"/>
+      <feColorMatrix in="blur" type="matrix"
+        values="1 0 0 0 0
+                0 1 0 0 0
+                0 0 1 0 0
+                0 0 0 0.85 0"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <g filter="url(#glow)">
+    <path d="M210 26l34 34 48-16 16 48 50 10-10 50 40 32-32 40 18 48-48 18-10 50-50-10-32 40-40-32-50 10-10-50-48-18 18-48-32-40 40-32-10-50 50-10 16-48 48 16 34-34z"
+      fill="rgba(7,7,10,0.85)" stroke="url(#g1)" stroke-width="6"/>
+  </g>
+
+  <text x="210" y="196" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="92" font-weight="900" fill="#FFE95C">
+    86+
+  </text>
+  <text x="210" y="246" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800" fill="rgba(255,255,255,0.86)">
+    SPECIALTY
+  </text>
+  <text x="210" y="272" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="800" fill="rgba(255,255,255,0.62)">
+    DROP GRADE
+  </text>
+</svg>

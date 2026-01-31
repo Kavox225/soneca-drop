@@ -1,0 +1,268 @@
+/* Product Card 3D Styles */
+
+.product-card-3d {
+  position: relative;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+.product-card-3d__link {
+  position: relative;
+  display: block;
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(11, 11, 18, 0.95), rgba(7, 7, 10, 0.98));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 20px;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.product-card-3d__link:hover {
+  border-color: rgba(70, 243, 255, 0.3);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.6),
+    0 0 40px rgba(70, 243, 255, 0.15),
+    inset 0 0 0 1px rgba(70, 243, 255, 0.2);
+  transform: translateY(-4px);
+}
+
+/* Animated glow border */
+.product-card-3d__glow {
+  position: absolute;
+  inset: -2px;
+  border-radius: 24px;
+  background: linear-gradient(
+    135deg,
+    rgba(70, 243, 255, 0.4),
+    rgba(255, 61, 242, 0.4),
+    rgba(255, 233, 92, 0.3)
+  );
+  opacity: 0;
+  filter: blur(12px);
+  transition: opacity 0.3s ease;
+  z-index: -1;
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+.product-card-3d__link:hover .product-card-3d__glow {
+  opacity: 0.6;
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 0.4; }
+}
+
+/* Image wrapper with 3D effect */
+.product-card-3d__image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 240px;
+  margin-bottom: 16px;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.product-card-3d__image-glow {
+  position: absolute;
+  inset: -20px;
+  background: radial-gradient(
+    circle at center,
+    rgba(70, 243, 255, 0.2),
+    rgba(255, 61, 242, 0.15),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  filter: blur(20px);
+  z-index: 0;
+}
+
+.product-card-3d__link:hover .product-card-3d__image-glow {
+  opacity: 1;
+}
+
+.product-card-3d__image {
+  position: relative !important;
+  z-index: 1;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.5));
+}
+
+.product-card-3d__link:hover .product-card-3d__image {
+  transform: scale(1.05) translateZ(20px);
+}
+
+/* Content */
+.product-card-3d__content {
+  position: relative;
+  z-index: 2;
+}
+
+.product-card-3d__header {
+  margin-bottom: 16px;
+}
+
+.product-card-3d__title {
+  font-size: 18px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.95);
+  margin: 0 0 8px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 10px rgba(70, 243, 255, 0.3);
+  transition: text-shadow 0.3s ease;
+}
+
+.product-card-3d__link:hover .product-card-3d__title {
+  text-shadow: 0 0 20px rgba(70, 243, 255, 0.6);
+}
+
+.product-card-3d__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.product-card-3d__price {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-card-3d__price-label {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+
+.product-card-3d__price-value {
+  font-size: 22px;
+  font-weight: 900;
+  color: #46f3ff;
+  text-shadow: 0 0 15px rgba(70, 243, 255, 0.5);
+  letter-spacing: -0.5px;
+}
+
+/* Button */
+.product-card-3d__btn {
+  position: relative;
+  border: 1px solid rgba(70, 243, 255, 0.3);
+  background: rgba(70, 243, 255, 0.08);
+  color: rgba(255, 255, 255, 0.95);
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
+}
+
+.product-card-3d__btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(70, 243, 255, 0.3),
+    rgba(255, 61, 242, 0.3)
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.product-card-3d__btn:hover {
+  border-color: rgba(70, 243, 255, 0.6);
+  background: rgba(70, 243, 255, 0.15);
+  box-shadow:
+    0 0 20px rgba(70, 243, 255, 0.4),
+    inset 0 0 20px rgba(70, 243, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.product-card-3d__btn:hover::before {
+  opacity: 1;
+}
+
+.product-card-3d__btn:active {
+  transform: translateY(0);
+}
+
+.product-card-3d__btn--adding {
+  background: rgba(70, 243, 255, 0.2);
+  border-color: rgba(70, 243, 255, 0.5);
+  box-shadow: 0 0 25px rgba(70, 243, 255, 0.5);
+}
+
+.product-card-3d__btn--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.product-card-3d__btn--disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.product-card-3d__btn-text {
+  position: relative;
+  z-index: 1;
+}
+
+.product-card-3d__btn-glow {
+  position: absolute;
+  inset: -50%;
+  background: radial-gradient(
+    circle,
+    rgba(70, 243, 255, 0.4),
+    transparent 70%
+  );
+  opacity: 0;
+  animation: btnGlow 2s ease-in-out infinite;
+}
+
+.product-card-3d__btn:hover .product-card-3d__btn-glow {
+  opacity: 1;
+}
+
+@keyframes btnGlow {
+  0%, 100% { transform: scale(0.8); opacity: 0.3; }
+  50% { transform: scale(1.2); opacity: 0.6; }
+}
+
+/* Scanline effect */
+.product-card-3d__scanline {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(70, 243, 255, 0.03) 2px,
+    rgba(70, 243, 255, 0.03) 4px
+  );
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .product-card-3d,
+  .product-card-3d__image,
+  .product-card-3d__glow,
+  .product-card-3d__btn-glow {
+    animation: none !important;
+    transition: none !important;
+  }
+}

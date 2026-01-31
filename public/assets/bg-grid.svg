@@ -1,0 +1,32 @@
+<svg width="1200" height="700" viewBox="0 0 1200 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="fade" x1="0" y1="0" x2="0" y2="700" gradientUnits="userSpaceOnUse">
+      <stop stop-color="rgba(70,243,255,0.22)"/>
+      <stop offset="0.55" stop-color="rgba(255,61,242,0.12)"/>
+      <stop offset="1" stop-color="rgba(0,0,0,0)"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="700" fill="transparent"/>
+
+  <!-- perspective-ish grid -->
+  <g opacity="0.55" stroke="url(#fade)" stroke-width="1">
+    <!-- horizontal lines -->
+    <path d="M0 520H1200"/>
+    <path d="M0 560H1200"/>
+    <path d="M0 600H1200"/>
+    <path d="M0 640H1200"/>
+    <path d="M0 680H1200"/>
+
+    <!-- vertical lines converging -->
+    <path d="M120 700L520 360"/>
+    <path d="M240 700L560 360"/>
+    <path d="M360 700L600 360"/>
+    <path d="M480 700L640 360"/>
+    <path d="M600 700L680 360"/>
+    <path d="M720 700L720 360"/>
+    <path d="M840 700L760 360"/>
+    <path d="M960 700L800 360"/>
+    <path d="M1080 700L840 360"/>
+  </g>
+</svg>

@@ -1,0 +1,359 @@
+/* styles/hero-neon.css */
+
+/* ---------- Design tokens (local to hero, can be moved to globals later) ---------- */
+:root {
+  --bg-0: #07070a;
+  --bg-1: #0b0b12;
+
+  --neon-cyan: #46f3ff;
+  --neon-cyan-dim: rgba(70, 243, 255, 0.35);
+
+  --neon-pink: #ff3df2;
+  --neon-pink-dim: rgba(255, 61, 242, 0.35);
+
+  --acid-yellow: #ffe95c;
+  --acid-yellow-dim: rgba(255, 233, 92, 0.35);
+
+  --text: rgba(255, 255, 255, 0.92);
+  --muted: rgba(255, 255, 255, 0.68);
+
+  --radius-xl: 28px;
+  --radius-lg: 18px;
+
+  --glow-soft: 0 0 18px;
+  --glow-med: 0 0 36px;
+  --glow-strong: 0 0 72px;
+}
+
+/* ---------- Hero shell ---------- */
+.soneca-hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  background: radial-gradient(1200px 650px at 20% 15%, rgba(70, 243, 255, 0.10), transparent 55%),
+              radial-gradient(1000px 600px at 70% 20%, rgba(255, 61, 242, 0.10), transparent 55%),
+              radial-gradient(1100px 680px at 55% 80%, rgba(255, 233, 92, 0.08), transparent 60%),
+              linear-gradient(180deg, var(--bg-1), var(--bg-0));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 20px 80px rgba(0, 0, 0, 0.55),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+}
+
+/* Animated background blobs */
+.soneca-hero::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(70, 243, 255, 0.18), transparent 35%),
+    radial-gradient(circle at 70% 35%, rgba(255, 61, 242, 0.18), transparent 38%),
+    radial-gradient(circle at 55% 80%, rgba(255, 233, 92, 0.14), transparent 40%);
+  filter: blur(28px);
+  animation: blobDrift 12s linear infinite;
+  transform: translate3d(0,0,0);
+  pointer-events: none;
+}
+
+/* Scanlines */
+.soneca-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      180deg,
+      rgba(255,255,255,0.04) 0px,
+      rgba(255,255,255,0.02) 1px,
+      rgba(0,0,0,0.00) 3px,
+      rgba(0,0,0,0.00) 6px
+    );
+  opacity: 0.12;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+@keyframes blobDrift {
+  0%   { transform: translate(-2%, -1%) scale(1.02) rotate(0deg); }
+  40%  { transform: translate(2%, 1%) scale(1.05) rotate(9deg); }
+  70%  { transform: translate(-1%, 2%) scale(1.03) rotate(17deg); }
+  100% { transform: translate(-2%, -1%) scale(1.02) rotate(0deg); }
+}
+
+/* ---------- Content layout ---------- */
+.soneca-hero__inner {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 28px;
+  padding: 38px;
+}
+
+@media (max-width: 940px) {
+  .soneca-hero__inner {
+    grid-template-columns: 1fr;
+    padding: 28px;
+  }
+}
+
+/* ---------- Neon title with broken flicker ---------- */
+.neon-title {
+  margin: 0;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.neon-title__line {
+  display: block;
+  font-size: clamp(42px, 6.2vw, 84px);
+}
+
+.neon-word {
+  position: relative;
+  display: inline-block;
+  padding-right: 10px;
+}
+
+/* Main glow layer */
+.neon-word--cyan {
+  color: var(--neon-cyan);
+  text-shadow:
+    0 0 1px rgba(255,255,255,0.75),
+    var(--glow-soft) rgba(70, 243, 255, 0.55),
+    var(--glow-med) rgba(70, 243, 255, 0.35),
+    var(--glow-strong) rgba(70, 243, 255, 0.20);
+  animation: neonFlickerCyan 6.2s infinite;
+}
+
+.neon-word--pink {
+  color: var(--neon-pink);
+  text-shadow:
+    0 0 1px rgba(255,255,255,0.75),
+    var(--glow-soft) rgba(255, 61, 242, 0.55),
+    var(--glow-med) rgba(255, 61, 242, 0.35),
+    var(--glow-strong) rgba(255, 61, 242, 0.20);
+  animation: neonFlickerPink 5.6s infinite;
+}
+
+/* Subtle "broken tube" halo */
+.neon-word::after {
+  content: "";
+  position: absolute;
+  inset: -10px -14px -12px -14px;
+  border-radius: 18px;
+  background: radial-gradient(circle at 40% 40%, rgba(255,255,255,0.08), transparent 55%);
+  filter: blur(10px);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* Random-ish flicker patterns */
+@keyframes neonFlickerCyan {
+  0%   { opacity: 1; filter: saturate(1.05); }
+  4%   { opacity: 0.65; }
+  6%   { opacity: 1; }
+  7%   { opacity: 0.25; }
+  8%   { opacity: 1; }
+  12%  { opacity: 0.85; }
+  13%  { opacity: 1; }
+  40%  { opacity: 1; }
+  41%  { opacity: 0.35; }
+  42%  { opacity: 1; }
+  78%  { opacity: 1; }
+  79%  { opacity: 0.5; }
+  80%  { opacity: 1; }
+  100% { opacity: 1; filter: saturate(1.05); }
+}
+
+@keyframes neonFlickerPink {
+  0%   { opacity: 1; filter: saturate(1.08); }
+  3%   { opacity: 0.5; }
+  4%   { opacity: 1; }
+  9%   { opacity: 0.2; }
+  10%  { opacity: 1; }
+  22%  { opacity: 0.9; }
+  23%  { opacity: 1; }
+  55%  { opacity: 1; }
+  56%  { opacity: 0.4; }
+  57%  { opacity: 1; }
+  88%  { opacity: 1; }
+  90%  { opacity: 0.6; }
+  92%  { opacity: 1; }
+  100% { opacity: 1; filter: saturate(1.08); }
+}
+
+/* Optional: individual broken letters (very short glitches) */
+.broken-letter {
+  display: inline-block;
+  animation: letterGlitch 4.8s infinite;
+}
+
+@keyframes letterGlitch {
+  0%   { opacity: 1; transform: translateY(0); }
+  31%  { opacity: 1; }
+  32%  { opacity: 0.05; transform: translateY(1px); }
+  33%  { opacity: 1; transform: translateY(0); }
+  67%  { opacity: 1; }
+  68%  { opacity: 0.15; transform: translateY(-1px); }
+  69%  { opacity: 1; transform: translateY(0); }
+  100% { opacity: 1; }
+}
+
+/* ---------- Subtitle + CTA ---------- */
+.soneca-subtitle {
+  margin-top: 14px;
+  max-width: 52ch;
+  color: var(--muted);
+  font-size: 15.5px;
+  line-height: 1.55;
+}
+
+.soneca-ctaRow {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+  flex-wrap: wrap;
+}
+
+.neon-btn {
+  position: relative;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  padding: 12px 16px;
+  border-radius: 999px;
+  font-weight: 750;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease, background 140ms ease;
+  backdrop-filter: blur(10px);
+}
+
+.neon-btn:focus-visible {
+  outline: 2px solid rgba(70, 243, 255, 0.55);
+  outline-offset: 3px;
+}
+
+.neon-btn:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255,255,255,0.22);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.05),
+    0 18px 60px rgba(0,0,0,0.55);
+}
+
+.neon-btn--primary {
+  border-color: rgba(70, 243, 255, 0.28);
+  box-shadow:
+    0 0 20px rgba(70, 243, 255, 0.16),
+    0 0 42px rgba(255, 61, 242, 0.10);
+}
+
+.neon-btn--primary::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(70,243,255,0.75), rgba(255,61,242,0.75), rgba(255,233,92,0.65));
+  opacity: 0.25;
+  filter: blur(10px);
+  z-index: -1;
+}
+
+.neon-btn--ghost {
+  border-color: rgba(255, 61, 242, 0.26);
+}
+
+/* ---------- 3D hero card (right side) ---------- */
+.hero-card3d {
+  position: relative;
+  border-radius: var(--radius-lg);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.10);
+  box-shadow:
+    0 18px 80px rgba(0,0,0,0.65),
+    inset 0 0 0 1px rgba(255,255,255,0.03);
+  transform-style: preserve-3d;
+  perspective: 900px;
+  min-height: 260px;
+  overflow: hidden;
+}
+
+.hero-card3d__inner {
+  position: absolute;
+  inset: 0;
+  padding: 18px;
+  transform: translateZ(0px);
+}
+
+.hero-card3d__badgeRow {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.hero-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 999px;
+  padding: 8px 10px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.84);
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(0,0,0,0.25);
+  backdrop-filter: blur(10px);
+}
+
+.hero-chip__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--neon-cyan);
+  box-shadow: 0 0 16px rgba(70,243,255,0.55);
+}
+
+.hero-pack {
+  position: absolute;
+  right: 18px;
+  bottom: 14px;
+  width: min(240px, 62%);
+  transform: translateZ(30px) rotateY(-14deg) rotateX(8deg);
+  filter:
+    drop-shadow(0 20px 40px rgba(0,0,0,0.55))
+    drop-shadow(0 0 22px rgba(70,243,255,0.16));
+  opacity: 0.98;
+}
+
+.hero-card3d__glowline {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(120deg, transparent 0%, rgba(70,243,255,0.12) 35%, rgba(255,61,242,0.10) 55%, transparent 75%),
+    radial-gradient(circle at 20% 20%, rgba(255,233,92,0.10), transparent 40%);
+  mix-blend-mode: screen;
+  animation: glowSweep 4.8s linear infinite;
+  opacity: 0.55;
+}
+
+@keyframes glowSweep {
+  0% { transform: translateX(-18%) translateY(-12%) rotate(0deg); }
+  100% { transform: translateX(18%) translateY(12%) rotate(0deg); }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .soneca-hero::before,
+  .neon-word--cyan,
+  .neon-word--pink,
+  .broken-letter,
+  .hero-card3d__glowline {
+    animation: none !important;
+  }
+}
