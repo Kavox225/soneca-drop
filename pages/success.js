@@ -1,19 +1,19 @@
 import { useEffect } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
 import { useShoppingCart } from '@/hooks/use-shopping-cart';
+import { useLanguage } from '@/context/LanguageContext';
 import { fetcher, shootFireworks } from '@/lib/utils';
 import { CheckIcon } from '@heroicons/react/outline';
 
-const Success = () => {
-  const {
-    query: { session_id },
-  } = useRouter();
-
+export default function Success() {
+  const { query: { session_id } } = useRouter();
   const { clearCart } = useShoppingCart();
+  const { t, lang } = useLanguage();
 
   const { data, error } = useSWR(
-    () => `/api/checkout_sessions/${session_id}`,
+    () => (session_id ? `/api/checkout_sessions/${session_id}` : null),
     fetcher
   );
 
@@ -25,26 +25,36 @@ const Success = () => {
   }, [data]);
 
   return (
-    <div className="container xl:max-w-screen-xl mx-auto py-12 px-6 text-center">
-      {error ? (
-        <div className="p-2 rounded-md bg-rose-100 text-rose-500 max-w-md mx-auto">
-          <p className="text-lg">Sorry, something went wrong!</p>
+    <div className="page-neon">
+      <div className="page-neon__container">
+        <div className="success-box">
+          {error ? (
+            <div className="success-box__error">
+              <p>{lang === 'fr' ? 'Une erreur s\'est produite.' : 'Something went wrong.'}</p>
+            </div>
+          ) : !data ? (
+            <p className="success-box__loading">
+              {lang === 'fr' ? 'Chargement...' : 'Loading...'}
+            </p>
+          ) : (
+            <>
+              <CheckIcon className="success-box__icon" />
+              <h1 className="success-box__title">
+                {lang === 'fr' ? 'Merci pour ta commande !' : 'Thanks for your order!'}
+              </h1>
+              <p className="success-box__desc">
+                {lang === 'fr' ? 'Vérifie ta boîte mail pour le reçu.' : 'Check your inbox for the receipt.'}
+              </p>
+              <p className="success-box__encourage">{t('checkoutEncourage')}</p>
+              <Link href="/shop">
+                <a className="neon-btn neon-btn--primary">
+                  {t('navShop')}
+                </a>
+              </Link>
+            </>
+          )}
         </div>
-      ) : !data ? (
-        <div className="p-2 rounded-md bg-gray-100 text-gray-500 max-w-md mx-auto">
-          <p className="text-lg animate-pulse">Loading...</p>
-        </div>
-      ) : (
-        <div className="py-4 px-8 rounded-md bg-gray-100 max-w-lg mx-auto">
-          <h2 className="text-4xl font-semibold flex flex-col items-center space-x-1">
-            <CheckIcon className="w-12 h-12 flex-shrink-0 text-green-600" />
-            <span>Thanks for your order!</span>
-          </h2>
-          <p className="text-lg mt-3">Check your inbox for the receipt.</p>
-        </div>
-      )}
+      </div>
     </div>
   );
-};
-
-export default Success;
+}

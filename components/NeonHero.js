@@ -1,8 +1,11 @@
 import Link from "next/link";
 
 export default function NeonHero({
-  primaryCtaHref = "/",
-  secondaryCtaHref = "#drops",
+  primaryCtaHref = "/shop",
+  secondaryCtaHref = "#current-drop",
+  heroCtaLabel = "Buy the drop",
+  heroCtaSecondary = "See what's inside",
+  slogan = "Specialty Coffee. Priced like your supermarket trash!",
 }) {
   return (
     <section className="soneca-hero">
@@ -26,19 +29,18 @@ export default function NeonHero({
 
           <p className="soneca-subtitle">
             <strong style={{ color: "rgba(255,255,255,0.92)" }}>
-              86+ Specialty Coffee.
-            </strong>{" "}
-            Priced like supermarket trash.
+              {slogan}
+            </strong>
           </p>
 
           <div className="soneca-ctaRow">
             <Link href={primaryCtaHref}>
               <a className="neon-btn neon-btn--primary">
-                Shop the drops
+                {heroCtaLabel}
               </a>
             </Link>
             <a href={secondaryCtaHref} className="neon-btn neon-btn--ghost">
-              See what's inside
+              {heroCtaSecondary}
             </a>
           </div>
         </div>
